@@ -12,6 +12,18 @@ T_avgpa = 5
 L_avgpa = 10
 ###
 
+
+### Test values (from checker.py)
+test_feature_matrix = np.array([[1,0,0],[0,1,1],[1,0,1],[0,1,0]])
+test_labels = np.array([-1,1,-1,1])
+test_theta = np.array([1,1,1])
+test_theta_0 = 1
+test_feature_vector = test_feature_matrix[0]
+test_label = test_labels[0]
+
+####
+
+
 ### Part I
 
 def hinge_loss(feature_matrix, labels, theta, theta_0):
