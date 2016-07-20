@@ -20,7 +20,6 @@ test_theta = np.array([1,1,1])
 test_theta_0 = 1
 test_feature_vector = test_feature_matrix[0]
 test_label = test_labels[0]
-
 ####
 
 
@@ -46,10 +45,20 @@ def hinge_loss(feature_matrix, labels, theta, theta_0):
     loss across all of the points in the feature matrix.
     """
 
+    """ Solution: Use Vectorized Implementation """
+
+    #Prepend a bias unit (1) to the feature vectors
+    feature_matrix = np.insert(feature_matrix, 0, 1, axis=1)
+
+    #Prepend theta_0 to theta vector
+    theta = np.insert(theta, 0, theta_0)
+
+    output = np.dot(feature_matrix, theta)
+    print 'output: %s', output
     
+    return output
 
-
-    raise NotImplementedError
+    #raise NotImplementedError
 
 def perceptron_single_step_update(feature_vector, label, current_theta, current_theta_0):
     """

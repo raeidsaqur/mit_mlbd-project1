@@ -234,9 +234,14 @@ if __name__ == '__main__':
     student_file = 'project1.py' # name of student code file
     
     code_checks = [check_hinge_loss, 
-        check_perceptron_single_step_update, check_perceptron,
-     check_passive_aggressive_single_step_update, check_average_perceptron, check_average_passive_aggressive, 
-     check_classify, check_perceptron_accuracy, check_average_passive_aggressive_accuracy]
+        check_perceptron_single_step_update, 
+        check_perceptron,
+        check_passive_aggressive_single_step_update, 
+        check_average_perceptron, 
+        check_average_passive_aggressive, 
+        check_classify, 
+        check_perceptron_accuracy, 
+        check_average_passive_aggressive_accuracy]
     
     # check_zip(zipped_file, required_files, student_file, code_checks)
     check_functions(code_checks)
