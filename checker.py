@@ -22,8 +22,18 @@ test_label = test_labels[0]
 # Barring redundant submission file checks 
 def check_functions(code_checks):
     """ Performs required code checks """ 
+
+    student_file = 'project1.py' # name of student code file
+    try:
+        student_module = imp.load_source('student_code', './' + student_file)
+    except Exception, e:
+        shutil.rmtree(tempdir)
+        f.close()
+        print 'Error in importing your code'
+        return False
+
     for check_fn in code_checks:
-        check_fn('project1.py')
+        check_fn(student_module)
 
     return True
 
@@ -82,7 +92,7 @@ def check_hinge_loss(student_module):
         type, value, tb = sys.exc_info()
         traceback.print_exc()
         pdb.post_mortem(tb)
-        
+
         print 'hinge_loss: Exception in running hinge_loss'
         return False
 
