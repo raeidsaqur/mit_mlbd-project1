@@ -47,18 +47,28 @@ def hinge_loss(feature_matrix, labels, theta, theta_0):
 
     """ Solution: Use Vectorized Implementation """
 
+    #Roll bias unit and theta_0 in x and theta respectively
+
     #Prepend a bias unit (1) to the feature vectors
     feature_matrix = np.insert(feature_matrix, 0, 1, axis=1)
 
     #Prepend theta_0 to theta vector
     theta = np.insert(theta, 0, theta_0)
 
-    output = np.dot(feature_matrix, theta)
-    #print 'output: %s', output
-    
-    return 1.0
+    # Calculate y(theta.x + theta_0) value.
+    # Note: we could've also just added scalar theta_0 to each theta.x value
+    # for the same result with unrolling
+    output = labels * np.dot(feature_matrix, theta)
 
-    #raise NotImplementedError
+    loss = 0
+    for row in output:
+        if (row <= 1):
+            row_loss = 1 - row
+            loss = loss + row_loss
+        else:
+            pass
+            
+    return loss
 
 def perceptron_single_step_update(feature_vector, label, current_theta, current_theta_0):
     """
