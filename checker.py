@@ -8,6 +8,9 @@ import numbers
 import numpy as np
 import sys
 
+#Debuggers
+import pdb, traceback
+
 test_feature_matrix = np.array([[1,0,0],[0,1,1],[1,0,1],[0,1,0]])
 test_labels = np.array([-1,1,-1,1])
 test_theta = np.array([1,1,1])
@@ -76,6 +79,10 @@ def check_hinge_loss(student_module):
         print 'hinge_loss: Not implemented'
         return False
     except:
+        type, value, tb = sys.exc_info()
+        traceback.print_exc()
+        pdb.post_mortem(tb)
+        
         print 'hinge_loss: Exception in running hinge_loss'
         return False
 

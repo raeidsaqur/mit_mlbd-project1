@@ -54,9 +54,9 @@ def hinge_loss(feature_matrix, labels, theta, theta_0):
     theta = np.insert(theta, 0, theta_0)
 
     output = np.dot(feature_matrix, theta)
-    print 'output: %s', output
+    #print 'output: %s', output
     
-    return output
+    return 1.0
 
     #raise NotImplementedError
 
