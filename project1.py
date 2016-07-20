@@ -46,6 +46,7 @@ def hinge_loss(feature_matrix, labels, theta, theta_0):
     """
 
     """ Solution: Use Vectorized Implementation """
+    """ Check: Hinge loss = 7 with test values """
 
     #Roll bias unit and theta_0 in x and theta respectively
 
@@ -67,7 +68,7 @@ def hinge_loss(feature_matrix, labels, theta, theta_0):
             loss = loss + row_loss
         else:
             pass
-            
+
     return loss
 
 def perceptron_single_step_update(feature_vector, label, current_theta, current_theta_0):
