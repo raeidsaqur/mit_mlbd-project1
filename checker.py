@@ -15,6 +15,15 @@ test_theta_0 = 1
 test_feature_vector = test_feature_matrix[0]
 test_label = test_labels[0]
 
+# Additional function added for only the code checks
+# Barring redundant submission file checks 
+def check_functions(code_checks):
+    """ Performs required code checks """ 
+    for check_fn in code_checks:
+        check_fn('project1.py')
+
+    return True
+
 def check_zip(zipped_file, required_files, student_file, code_checks):
     """ Checks whether files in required_files are present in the zipped_file and basic code behavior """
 
@@ -218,10 +227,22 @@ def check_average_passive_aggressive_accuracy(student_module):
 
 if __name__ == '__main__':
     zipped_file = 'project1.zip' # name of zip file to be submitted
+    
     required_files = ['main.py', 'project1.py', 'reviews_submit.tsv', 'reviews_test.tsv', 'reviews_train.tsv',
      'reviews_val.tsv', 'stopwords.txt', 'toy_data.tsv', 'utils.py', 'writeup.pdf'] # required files in the zip
+    
     student_file = 'project1.py' # name of student code file
-    code_checks = [check_hinge_loss, check_perceptron_single_step_update, check_perceptron,
+    
+    code_checks = [check_hinge_loss, 
+        check_perceptron_single_step_update, check_perceptron,
      check_passive_aggressive_single_step_update, check_average_perceptron, check_average_passive_aggressive, 
      check_classify, check_perceptron_accuracy, check_average_passive_aggressive_accuracy]
-    check_zip(zipped_file, required_files, student_file, code_checks)
+    
+    # check_zip(zipped_file, required_files, student_file, code_checks)
+    check_functions(code_checks)
+
+
+
+
+
+

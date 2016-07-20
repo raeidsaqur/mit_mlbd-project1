@@ -45,6 +45,10 @@ def hinge_loss(feature_matrix, labels, theta, theta_0):
     given dataset and parameters. This number should be the average hinge
     loss across all of the points in the feature matrix.
     """
+
+    
+
+
     raise NotImplementedError
 
 def perceptron_single_step_update(feature_vector, label, current_theta, current_theta_0):
@@ -353,3 +357,4 @@ def accuracy(preds, targets):
     returns the percentage and number of correct predictions.
     """
     return (preds == targets).mean()
+
