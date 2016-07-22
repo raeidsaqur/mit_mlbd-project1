@@ -27,9 +27,12 @@ def check_functions(code_checks):
     try:
         student_module = imp.load_source('student_code', './' + student_file)
     except Exception, e:
-        shutil.rmtree(tempdir)
-        f.close()
         print 'Error in importing your code'
+
+        type, value, tb = sys.exc_info()
+        traceback.print_exc()
+        pdb.post_mortem(tb)
+        
         return False
 
     for check_fn in code_checks:
@@ -109,6 +112,10 @@ def check_perceptron_single_step_update(student_module):
         print 'perceptron_single_step_update: Not implemented'
         return False
     except:
+        type, value, tb = sys.exc_info()
+        traceback.print_exc()
+        pdb.post_mortem(tb)
+
         print 'perceptron_single_step_update: Exception in running perceptron_single_step_update'
         return False
 
@@ -146,6 +153,10 @@ def check_passive_aggressive_single_step_update(student_module):
         print 'passive_aggressive_single_step_update: Not implemented'
         return False
     except:
+        type, value, tb = sys.exc_info()
+        traceback.print_exc()
+        pdb.post_mortem(tb)
+
         print 'passive_aggressive_single_step_update: Exception in running passive_aggressive_single_step_update'
         return False
 

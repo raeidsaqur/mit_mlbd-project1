@@ -65,7 +65,7 @@ def hinge_loss(feature_matrix, labels, theta, theta_0):
     for row in output:
         if (row <= 1):
             row_loss = 1 - row
-            loss = loss + row_loss
+            loss += row_loss
         else:
             pass
 
@@ -90,12 +90,12 @@ def perceptron_single_step_update(feature_vector, label, current_theta, current_
     real valued number with the value of theta_0 after the current updated has
     completed.
     """
-    output = label * (np.dot(feature_vector, current_theta) + current_theta_0)
+    output = label * (np.dot(feature_vector, np.transpose(current_theta)) + current_theta_0)
     #print "Output = ", output
 
     if (output <= 0):
-        current_theta_0 = current_theta_0 + label
-        current_theta = current_theta + np.dot(label, feature_vector)
+        current_theta_0 += label
+        current_theta += (label * feature_vector)
     else:
         pass
 
@@ -130,15 +130,15 @@ def perceptron(feature_matrix, labels, T):
 
     #initialize theta, theta_0
     #theta = np.zeros((n,1))
-    theta = np.zeros((n,1))
+    theta = np.zeros((1,n))
     theta_0 = 0
 
     for t in range(1, T):
         for i in range(1, n):
             yi = labels[i]
-            xi = feature_matrix[i]
+            xi = feature_matrix[[i]]
             xi = xi.reshape(1,n)
-            current_theta = theta.reshape(n,1)
+            current_theta = theta
             current_theta_0 = theta_0
             (theta, theta_0) = perceptron_single_step_update(xi, yi, current_theta, current_theta_0)
 
