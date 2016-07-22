@@ -173,6 +173,10 @@ def check_average_perceptron(student_module):
         print 'average_perceptron: Not implemented'
         return False
     except:
+        type, value, tb = sys.exc_info()
+        traceback.print_exc()
+        pdb.post_mortem(tb)
+        
         print 'average_perceptron: Exception in running average_perceptron'
         return False
 

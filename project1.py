@@ -71,6 +71,20 @@ def hinge_loss(feature_matrix, labels, theta, theta_0):
 
     return loss
 
+def average_perceptron_single_step_update(feature_vector, label, current_theta_avg, current_theta_0_avg, c):
+
+    output = label * (np.dot(feature_vector, np.transpose(current_theta_avg)) + current_theta_0_avg)
+    print "\n\tperceptron_single_step_update:\n\tOutput = {}, label(y) = {}, Mismatch = {mismatch}\n".format(output, label, mismatch = "TRUE" if output != label else "FALSE")
+
+    if (output <= 0):
+        current_theta_avg += (c * label * feature_vector)
+        current_theta_0_avg += (c * label)
+    else:
+        pass
+
+    return current_theta_avg, current_theta_0_avg
+
+
 def perceptron_single_step_update(feature_vector, label, current_theta, current_theta_0):
     """
     Section 1.3
@@ -129,7 +143,6 @@ def perceptron(feature_matrix, labels, T):
     n = feature_matrix.shape[1]
 
     #initialize theta, theta_0
-    #theta = np.zeros((n,1))
     theta = np.zeros((1,n))
     theta_0 = 0
 
@@ -197,7 +210,38 @@ def average_perceptron(feature_matrix, labels, T):
     Hint: It is difficult to keep a running average; however, it is simple to
     find a sum and divide.
     """
-    raise NotImplementedError
+
+    print "\n##### Executing average_perceptron #####\n"
+
+    n = feature_matrix.shape[1]
+    c_step_decrementer = 1/(n*T)
+
+    #initialize theta, theta_0
+    theta = np.zeros((1,n))
+    theta_0 = 0
+    theta_avg = np.zeros((1,n))
+    theta_0_avg = 0
+    c = 1
+
+    for t in range(1, T):
+        for i in range(1, n):
+            yi = labels[i]
+            xi = feature_matrix[[i]]
+            xi = xi.reshape(1,n)
+            
+            #Update theta and average theta
+            (theta, theta_0) = perceptron_single_step_update(xi, yi, theta, theta_0)
+            (theta_avg, theta_0_avg) = average_perceptron_single_step_update(xi, yi, theta_avg, theta_0_avg, c)
+
+            #decrement c 
+            c -= c_step_decrementer
+            print "\tIteration t -> {}, \n\t\tFeature/training set i -> {}, \n\t\c -> {}".format(t, i, c)
+            #print "\tIteration t -> {}, \n\t\tFeature/training set i -> {}, \n\t\ttheta ->{}, \n\t\ttheta_0 -> {} ".format(t, i, theta, theta_0)
+
+    print "Final theta_avg = {}, theat_0_avg = {}".format(theta_avg, theta_0_avg)
+
+
+    return theta_avg, theta_0_avg
 
 def average_passive_aggressive(feature_matrix, labels, T, L):
     """
