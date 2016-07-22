@@ -91,7 +91,7 @@ def perceptron_single_step_update(feature_vector, label, current_theta, current_
     completed.
     """
     output = label * (np.dot(feature_vector, np.transpose(current_theta)) + current_theta_0)
-    #print "Output = ", output
+    print "\n\tperceptron_single_step_update:\n\tOutput = {}, label(y) = {}, Mismatch = {mismatch}\n".format(output, label, mismatch = "TRUE" if output != label else "FALSE")
 
     if (output <= 0):
         current_theta_0 += label
@@ -141,8 +141,9 @@ def perceptron(feature_matrix, labels, T):
             current_theta = theta
             current_theta_0 = theta_0
             (theta, theta_0) = perceptron_single_step_update(xi, yi, current_theta, current_theta_0)
+            print "\tIteration t -> {}, \n\t\tFeature/training set i -> {}, \n\t\ttheta ->{}, \n\t\ttheta_0 -> {} ".format(t, i, theta, theta_0)
 
-    print "Final theta, theat_0", theta, theta_0
+    print "Final theta = {}, theat_0 = {}".format(theta, theta_0)
 
     return theta, theta_0
 
