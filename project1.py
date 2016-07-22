@@ -50,7 +50,7 @@ def hinge_loss(feature_matrix, labels, theta, theta_0):
 
     #Roll bias unit and theta_0 in x and theta respectively
 
-    #Prepend a bias unit (1) to the feature vectors
+    #Prepend (given the labels, does appending instead matters?) a bias unit (1) to the feature vectors
     feature_matrix = np.insert(feature_matrix, 0, 1, axis=1)
 
     #Prepend theta_0 to theta vector
@@ -90,7 +90,16 @@ def perceptron_single_step_update(feature_vector, label, current_theta, current_
     real valued number with the value of theta_0 after the current updated has
     completed.
     """
-    raise NotImplementedError
+    output = label * (np.dot(feature_vector, current_theta) + current_theta_0)
+    #print "Output = ", output
+
+    if (output <= 0):
+        current_theta_0 = current_theta_0 + label
+        current_theta = current_theta + np.dot(label, feature_vector)
+    else:
+        pass
+
+    return current_theta, current_theta_0
 
 def perceptron(feature_matrix, labels, T):
     """
@@ -116,7 +125,26 @@ def perceptron(feature_matrix, labels, T):
     theta_0, the offset classification parameter, after T iterations through
     the feature matrix.
     """
-    raise NotImplementedError
+
+    n = feature_matrix.shape[1]
+
+    #initialize theta, theta_0
+    #theta = np.zeros((n,1))
+    theta = np.zeros((n,1))
+    theta_0 = 0
+
+    for t in range(1, T):
+        for i in range(1, n):
+            yi = labels[i]
+            xi = feature_matrix[i]
+            xi = xi.reshape(1,n)
+            current_theta = theta.reshape(n,1)
+            current_theta_0 = theta_0
+            (theta, theta_0) = perceptron_single_step_update(xi, yi, current_theta, current_theta_0)
+
+    print "Final theta, theat_0", theta, theta_0
+
+    return theta, theta_0
 
 def passive_aggressive_single_step_update(feature_vector, label, L, current_theta, current_theta_0):
     """

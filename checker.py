@@ -125,6 +125,10 @@ def check_perceptron(student_module):
         print 'perceptron: Not implemented'
         return False
     except:
+        type, value, tb = sys.exc_info()
+        traceback.print_exc()
+        pdb.post_mortem(tb)
+        
         print 'perceptron: Exception in running perceptron'
         return False
 
@@ -260,7 +264,7 @@ if __name__ == '__main__':
         check_perceptron_accuracy, 
         check_average_passive_aggressive_accuracy]
     
-    # check_zip(zipped_file, required_files, student_file, code_checks)
+    #check_zip(zipped_file, required_files, student_file, code_checks)
     check_functions(code_checks)
 
 
