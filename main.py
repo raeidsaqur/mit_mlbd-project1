@@ -43,7 +43,7 @@ def plot_toy_results(algo_name, thetas):
     	print 'Error in utils.plot_toy_data function'
     	type, value, tb = sys.exc_info()
         traceback.print_exc()
-        #pdb.post_mortem(tb)
+        pdb.post_mortem(tb)
 
 plot_toy_results('Perceptron', thetas_perceptron)
 #plot_toy_results('Average Perceptron', thetas_avg_perceptron)
