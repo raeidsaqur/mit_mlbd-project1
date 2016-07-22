@@ -169,7 +169,7 @@ def passive_aggressive_single_step_update(feature_vector, label, L, current_thet
     Args:
         feature_vector - A numpy array describing a single data point.
         label - The correct classification of the feature vector.
-        L - The lamba value being used to update the passive-aggressive
+        L - The lambda value being used to update the passive-aggressive
             algorithm parameters.
         current_theta - The current theta being used by the passive-aggressive
             algorithm before this update.
@@ -181,6 +181,18 @@ def passive_aggressive_single_step_update(feature_vector, label, L, current_thet
     real valued number with the value of theta_0 after the current updated has
     completed.
     """
+    
+    #Prepend theta_0 to theta vector
+    # i.e. classification params = [theta_0; theta]
+    current_theta_rolled =  np.insert(current_theta, 0, current_theta_0) 
+
+    #Prepend bias unit to our feature vector
+    # i.e. [x0; x]
+    feature_vector = np.insert(feature_vector, 0, 1) 
+
+
+
+    #return current_theta, current_theta_0
     raise NotImplementedError
 
 def average_perceptron(feature_matrix, labels, T):
@@ -272,7 +284,19 @@ def average_passive_aggressive(feature_matrix, labels, T, L):
     Hint: It is difficult to keep a running average; however, it is simple to
     find a sum and divide.
     """
-    raise NotImplementedError
+    n = feature_matrix.shape[1]
+    c_step_decrementer = 1/(n*T)
+
+
+    #initialize theta, theta_0
+    theta = np.zeros((1,n))
+    theta_0 = 0
+    theta_avg = np.zeros((1,n))
+    theta_0_avg = 0
+    c = 1
+
+    return theta_avg, theta_0_avg
+    #raise NotImplementedError
 
 ### Part II
 
