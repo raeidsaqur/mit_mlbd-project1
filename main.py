@@ -1,5 +1,9 @@
 import project1 as p1
 import utils
+import sys
+
+#Debuggers
+import pdb, traceback
 
 #-------------------------------------------------------------------------------
 # Data loading. There is no need to edit code in this section.
@@ -33,7 +37,13 @@ thetas_perceptron = p1.perceptron(toy_features, toy_labels, T)
 #thetas_avg_pa = p1.average_passive_aggressive(toy_features, toy_labels, T, L)
 
 def plot_toy_results(algo_name, thetas):
-    utils.plot_toy_data(algo_name, toy_features, toy_labels, thetas)
+    try:
+    	utils.plot_toy_data(algo_name, toy_features, toy_labels, thetas)
+    except  Exception, e:
+    	print 'Error in utils.plot_toy_data function'
+    	type, value, tb = sys.exc_info()
+        traceback.print_exc()
+        #pdb.post_mortem(tb)
 
 plot_toy_results('Perceptron', thetas_perceptron)
 #plot_toy_results('Average Perceptron', thetas_avg_perceptron)
