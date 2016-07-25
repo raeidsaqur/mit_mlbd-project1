@@ -213,6 +213,34 @@ def passive_aggressive_single_step_update(feature_vector, label, L, current_thet
     #return current_theta, current_theta_0
     raise NotImplementedError
 
+
+
+def average_perceptron2(feature_matrix, labels, T):
+
+    (nsamples, nfeatures) = feature_matrix.shape
+    theta = np.zeros([nfeatures])
+    theta_0 = 0
+    theta_avg = np.zeros([nfeatures])
+    theta_0_avg = 0
+
+    for t in range(T):
+        for j in range(len(feature_matrix)):
+            label = labels[j]
+            sample_vector = feature_matrix[j, :]
+            if (label * (np.dot(sample_vector, theta.transpose()) + theta_0) <= 0):
+                theta = theta + label * sample_vector
+                theta_0 = theta_0 + label
+            theta_avg += theta
+            theat_0_avg += theta_0
+
+
+    #Average by multiplying by (1/nT)
+
+    return (theta_avg/(len(feature_matrix)*T), theta_0_avg(len(feature_matrix)*T))
+
+
+
+
 def average_perceptron(feature_matrix, labels, T):
     """
     Section 1.6
