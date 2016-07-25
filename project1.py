@@ -116,7 +116,7 @@ def perceptron_single_step_update(feature_vector, label, current_theta, current_
     return current_theta, current_theta_0
 
 
-def perceptron2(feature_matrix, labels, T):
+def perceptron(feature_matrix, labels, T):
     
     (nsamples, nfeatures) = feature_matrix.shape
     theta_vector = np.zeros([nfeatures])
@@ -133,7 +133,7 @@ def perceptron2(feature_matrix, labels, T):
 
     return (theta_vector, theta_0)
 
-def perceptron(feature_matrix, labels, T):
+def perceptron2(feature_matrix, labels, T):
     """
     Section 1.4
     Runs the full perceptron algorithm on a given set of data. Runs T
@@ -215,7 +215,7 @@ def passive_aggressive_single_step_update(feature_vector, label, L, current_thet
 
 
 
-def average_perceptron2(feature_matrix, labels, T):
+def average_perceptron(feature_matrix, labels, T):
 
     (nsamples, nfeatures) = feature_matrix.shape
     theta = np.zeros([nfeatures])
@@ -241,7 +241,7 @@ def average_perceptron2(feature_matrix, labels, T):
 
 
 
-def average_perceptron(feature_matrix, labels, T):
+def average_perceptron2(feature_matrix, labels, T):
     """
     Section 1.6
     Runs the average perceptron algorithm on a given set of data. Runs T
