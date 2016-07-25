@@ -115,6 +115,24 @@ def perceptron_single_step_update(feature_vector, label, current_theta, current_
 
     return current_theta, current_theta_0
 
+
+def perceptron2(feature_matrix, labels, T):
+    
+    (nsamples, nfeatures) = feature_matrix.shape
+    theta_vector = np.zeros([nfeatures])
+    theta_0 = 0
+
+    for t in range(T):
+        for j in range(len(feature_matrix)):
+            label = labels[j]
+            sample_vector = feature_matrix[j, :]
+            
+            if label * (np.dot(sample_vector, theta_vector.transpose()) + theta_0) <= 0:
+                theta_vector = theta_vector + label*sample_vector
+                theta_0 = theata_0 + label
+
+    return (theta_vector, theta_0)
+
 def perceptron(feature_matrix, labels, T):
     """
     Section 1.4
@@ -140,7 +158,7 @@ def perceptron(feature_matrix, labels, T):
     the feature matrix.
     """
 
-    n = feature_matrix.shape[1]
+    (m, n) = feature_matrix.shape
 
     #initialize theta, theta_0
     theta = np.zeros((1,n))
