@@ -33,8 +33,8 @@ T = 5
 L = 10
 
 thetas_perceptron = p1.perceptron(toy_features, toy_labels, T)
-#thetas_avg_perceptron = p1.average_perceptron(toy_features, toy_labels, T)
-#thetas_avg_pa = p1.average_passive_aggressive(toy_features, toy_labels, T, L)
+thetas_avg_perceptron = p1.average_perceptron(toy_features, toy_labels, T)
+thetas_avg_pa = p1.average_passive_aggressive(toy_features, toy_labels, T, L)
 
 def plot_toy_results(algo_name, thetas):
     try:
@@ -46,8 +46,8 @@ def plot_toy_results(algo_name, thetas):
         pdb.post_mortem(tb)
 
 plot_toy_results('Perceptron', thetas_perceptron)
-#plot_toy_results('Average Perceptron', thetas_avg_perceptron)
-#plot_toy_results('Average Passive-Aggressive', thetas_avg_pa)
+plot_toy_results('Average Perceptron', thetas_avg_perceptron)
+plot_toy_results('Average Passive-Aggressive', thetas_avg_pa)
 
 #-------------------------------------------------------------------------------
 #
