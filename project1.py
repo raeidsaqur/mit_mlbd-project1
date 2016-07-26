@@ -377,11 +377,24 @@ def classify(feature_matrix, theta, theta_0):
         theta - A numpy array describing the linear classifier.
         theta_0 - A real valued number representing the offset parameter.
 
-    Returns: A numpy array of 1s and -1s where the kth element of the array is the predicted
+    Returns: A numpy array of (predicted labels) 1s and -1s where the kth element of the array is the predicted
     classification of the kth row of the feature matrix using the given theta
     and theta_0.
     """
-    raise NotImplementedError
+
+    (m,n) = feature_matrix.shape
+
+    predictions = np.zeros([m])
+
+    for i in xrange(0, m):
+        sample_features = feature_matrix[i]
+        output = theta_0 + np.dot(theta, sample_features)
+        if (output > 0 ):
+            predictions[i] = 1
+        else:
+            predictions[i] = -1
+
+    return predictions
 
 def perceptron_accuracy(train_feature_matrix, val_feature_matrix, train_labels, val_labels, T):
     """
