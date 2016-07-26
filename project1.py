@@ -129,7 +129,7 @@ def perceptron(feature_matrix, labels, T):
             
             if label * (np.dot(sample_vector, theta_vector.transpose()) + theta_0) <= 0:
                 theta_vector = theta_vector + label*sample_vector
-                theta_0 = theata_0 + label
+                theta_0 = theta_0 + label
 
     return (theta_vector, theta_0)
 
@@ -231,13 +231,14 @@ def average_perceptron(feature_matrix, labels, T):
                 theta = theta + label * sample_vector
                 theta_0 = theta_0 + label
             theta_avg += theta
-            theat_0_avg += theta_0
+            theta_0_avg += theta_0
 
 
     #Average by multiplying by (1/nT)
+    n = len(feature_matrix)
+    nT = n * T
 
-    return (theta_avg/(len(feature_matrix)*T), theta_0_avg(len(feature_matrix)*T))
-
+    return (theta_avg/nT), (theta_0_avg/nT)
 
 
 
@@ -330,19 +331,36 @@ def average_passive_aggressive(feature_matrix, labels, T, L):
     Hint: It is difficult to keep a running average; however, it is simple to
     find a sum and divide.
     """
-    n = feature_matrix.shape[1]
+    (m,n) = feature_matrix.shape
     c_step_decrementer = 1/(n*T)
 
 
     #initialize theta, theta_0
-    theta = np.zeros((1,n))
+    theta_vector = np.zeros([n])
     theta_0 = 0
-    theta_avg = np.zeros((1,n))
+    theta_avg = np.zeros([n])
     theta_0_avg = 0
-    c = 1
 
-    return theta_avg, theta_0_avg
-    #raise NotImplementedError
+
+    for t in range(T):
+        for j in range (len(feature_matrix)):
+            label = labels[j]
+            sample_vector = feature_matrix[j, :]
+            eta = min(loss(label, sample_vector,  theta_vector, theta_0)/(np.linalg.norm(sample_vector)**2), 1.0/L)
+            
+            theta_vector = theta_vector + eta*label*sample_vector
+            theta_0 += eta*label
+            theta_avg += theta_vector
+            theta_0_avg += theta_0
+    
+    return (theta_avg/(len(feature_matrix)*T), theta_0_avg/(len(feature_matrix)*T))
+
+def loss(y, x, theta, theta_0):
+    x = x.transpose()
+    if y*(np.dot(theta, x) + theta_0)<=1:
+        return 1-y*(np.dot(theta, x) + theta_0)
+    else:
+        return 0
 
 ### Part II
 
